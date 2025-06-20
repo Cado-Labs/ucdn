@@ -1,5 +1,5 @@
-const upload = require("./upload")
+import upload from "./upload.js"
 
-module.exports = {
+export default {
   upload,
 }
