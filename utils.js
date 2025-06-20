@@ -1,6 +1,6 @@
-const path = require("path")
-const fs = require("fs")
-const yaml = require("js-yaml")
+import path from "path"
+import fs from "fs"
+import yaml from "js-yaml"
 
 const loadYamlFile = filePath => {
   const configPath = path.resolve(filePath)
@@ -8,6 +8,6 @@ const loadYamlFile = filePath => {
   return yaml.load(content)
 }
 
-module.exports = {
+export default {
   loadYamlFile,
 }

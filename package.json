@@ -1,12 +1,13 @@
 {
-  "name": "@Cado-Labs/ucdn",
-  "version": "1.0.0",
+  "name": "@cadolabs/ucdn",
+  "version": "1.1.0",
   "bin": "ucdn",
   "main": "index.js",
   "repository": "git@github.com:Cado-Labs/ucdn.git",
   "license": "MIT",
   "author": "Aleksei Bespalov <nulldefiner@gmail.com>",
   "homepage": "https://github.com/Cado-Labs/ucdn",
+  "type": "module",
   "scripts": {
     "lint": "eslint . ucdn"
   },
@@ -14,6 +15,7 @@
     "@aws-sdk/client-s3": "^3.421.0",
     "js-yaml": "^4.1.0",
     "mime-types": "^2.1.35",
+    "p-limit": "^6.2.0",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
