@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-const yargs = require("yargs")
+import yargs from "yargs"
+import { hideBin } from 'yargs/helpers'
 
-const pkg = require("./package")
-const utils = require("./utils")
-const upload = require("./upload")
+import pkg from "./package.json" with { type: 'json' }
+import utils from "./utils.js"
+import upload from "./upload.js"
 
 const yargsOptions = {
   config: {
@@ -59,9 +60,15 @@ const yargsOptions = {
     type: "string",
     default: "",
   },
+  concurrencyLimit: {
+    alias: "processes",
+    describe: "Limit of concurrent upload processes",
+    type: "integer",
+    default: 100,
+  },
 }
 
-yargs
+yargs(hideBin(process.argv))
   .env("UCDN")
   .command("upload", "upload assets to AWS S3", {}, upload)
   .options(yargsOptions)
@@ -71,6 +78,7 @@ yargs
   .strict()
   .middleware(argv => {
     const config = utils.loadYamlFile(argv.config)
+
     const configObject = argv.C ? (config[argv.C] || {}) : config
 
     Object

@@ -1,7 +1,8 @@
-const fs = require("fs")
-const path = require("path")
-const mime = require("mime-types")
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3")
+import fs from "fs"
+import path from "path"
+import mime from "mime-types"
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
+import pLimit from "p-limit"
 
 const configDefaults = {
   region: null,
@@ -11,6 +12,7 @@ const configDefaults = {
   accessKeyId: null,
   secretAccessKey: null,
   targetDir: null,
+  concurrencyLimit: 100,
 }
 
 const getConfig = passedConfig => {
@@ -33,14 +35,16 @@ const getKey = (file, root, targetDir) => {
   return path.join(targetDir, filepath)
 }
 
-const uploadFile = (s3, config, file, key) => {
-  return fs.promises.readFile(file).then(data => {
+const uploadFileFunc = (s3, config, file, key) => {
+  return () => {
+    const data = fs.readFileSync(file)
     const { bucket } = config
     const basename = path.basename(file)
     const contentType = mime.contentType(basename)
     const params = { Bucket: bucket, Body: data, Key: key, ContentType: contentType }
+
     return s3.send(new PutObjectCommand(params))
-  })
+  }
 }
 
 const upload = argv => {
@@ -61,9 +65,11 @@ const upload = argv => {
     return !exclude.includes(ext)
   })
 
+  const limit = pLimit(config.concurrencyLimit);
+
   const promises = files.map(file => {
     const key = getKey(file, directory, targetDir)
-    return uploadFile(s3, config, file, key)
+    return limit(uploadFileFunc(s3, config, file, key))
       .then(() => console.log("Uploaded", file))
   })
 
@@ -78,4 +84,4 @@ const upload = argv => {
     })
 }
 
-module.exports = upload
+export default upload

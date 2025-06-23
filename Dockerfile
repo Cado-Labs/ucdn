@@ -1,5 +1,5 @@
 FROM node:alpine
 
-RUN yarn global add @Cado-Labs/ucdn
+RUN yarn global add @cadolabs/ucdn
 
 ENTRYPOINT ["/usr/local/bin/ucdn"]
