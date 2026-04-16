@@ -9,6 +9,7 @@ const configDefaults = {
   dir: null,
   bucket: null,
   exclude: [],
+  endpoint: null,
   accessKeyId: null,
   secretAccessKey: null,
   targetDir: null,
@@ -49,10 +50,11 @@ const uploadFileFunc = (s3, config, file, key) => {
 
 const upload = argv => {
   const config = getConfig(argv)
-  const { region, accessKeyId, secretAccessKey, dir, exclude, targetDir } = config
+  const { region, endpoint, accessKeyId, secretAccessKey, dir, exclude, targetDir } = config
 
   const s3 = new S3Client({
     region,
+    endpoint,
     credentials: {
       accessKeyId: accessKeyId || "unknown",
       secretAccessKey: secretAccessKey || "unknown",
