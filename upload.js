@@ -52,14 +52,23 @@ const upload = argv => {
   const config = getConfig(argv)
   const { region, endpoint, accessKeyId, secretAccessKey, dir, exclude, targetDir } = config
 
-  const s3 = new S3Client({
+  let s3Config = {
     region,
-    endpoint,
-    credentials: {
-      accessKeyId: accessKeyId || "unknown",
-      secretAccessKey: secretAccessKey || "unknown",
-    },
-  })
+  }
+
+  if (accessKeyId && secretAccessKey) {
+    s3Config.credentials = {
+      accessKeyId,
+      secretAccessKey,
+    }
+  }
+
+  if (endpoint) {
+    s3Config.endpoint = endpoint;
+    s3Config.forcePathStyle = true;
+  }
+
+  const s3 = new S3Client(s3Config)
 
   const directory = path.resolve(dir)
   const files = findFiles(directory).filter(x => {
