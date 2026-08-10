@@ -1,5 +1,5 @@
-FROM node:alpine
+FROM node:26-alpine
 
-RUN yarn global add @cadolabs/ucdn
+RUN npm install -g @cadolabs/ucdn
 
 ENTRYPOINT ["/usr/local/bin/ucdn"]
