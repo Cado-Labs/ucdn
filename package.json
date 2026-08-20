@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.421.0",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.1.1",
     "mime-types": "^2.1.35",
     "p-limit": "^6.2.0",
     "yargs": "^17.7.2"
