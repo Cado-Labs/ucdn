@@ -30,7 +30,7 @@ const yargsOptions = {
     alias: "b",
     describe: "AWS bucket for upload",
     type: "string",
-    default: null,
+    demand: true,
   },
   exclude: {
     alias: "e",
@@ -77,7 +77,7 @@ yargs(hideBin(process.argv))
   .version(pkg.version)
   .strict()
   .middleware(argv => {
-    const config = utils.loadYamlFile(argv.config)
+    const config = utils.loadYamlFile(argv.config) || {}
 
     const configObject = argv.C ? (config[argv.C] || {}) : config
 

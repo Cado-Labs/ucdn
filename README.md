@@ -19,7 +19,7 @@ $ npm i -g @cadolabs/ucdn
 ### Upload
 
 ```sh
-$ ucdn upload -c /path/to/config/file.yaml -C production
+$ ucdn upload -c /path/to/config/file.yaml -C production -e gz -e map
 ```
 
 ## Options
