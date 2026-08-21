@@ -34,7 +34,7 @@ const yargsOptions = {
   },
   exclude: {
     alias: "e",
-    describe: "excluded extenstions",
+    describe: "excluded extensions",
     default: ["html", "gz"],
     type: "array",
   },
@@ -77,7 +77,8 @@ yargs(hideBin(process.argv))
   .version(pkg.version)
   .strict()
   .middleware(argv => {
-    const config = utils.loadYamlFile(argv.config) || {}
+    const isDefaultConfig = argv.config === yargsOptions.config.default
+    const config = utils.loadYamlFile(argv.config, { optional: isDefaultConfig }) || {}
 
     const configObject = argv.C ? (config[argv.C] || {}) : config
 
