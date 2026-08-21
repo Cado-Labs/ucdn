@@ -26,8 +26,7 @@ $ ucdn upload -c /path/to/config/file.yaml -C production
 
 All following options except `config` and `config-key` can be configured using the config file.
 
-The config file is optional — the default `./ucdn.yml` may be absent, but a path passed
-explicitly via `--config` must exist.
+The config file is optional — the default `./ucdn.yml` may be absent, but a path passed explicitly via `--config` must exist.
 
 Available AWS regions can be viewed at https://docs.aws.amazon.com/sns/latest/dg/sns-supported-regions-countries.html.
 
@@ -46,15 +45,13 @@ Available AWS regions can be viewed at https://docs.aws.amazon.com/sns/latest/dg
 
 ### exclude
 
-Extensions are listed without a leading dot. Repeat the option to exclude several of them.
-`-e` and `--exclude` are the same option, so both forms can be mixed:
+Extensions are listed without a leading dot. Repeat the option to exclude several of them. `-e` and `--exclude` are the same option, so both forms can be mixed:
 
 ```sh
 $ ucdn upload -e html -e gz -e map
 ```
 
-The passed extensions replace the default `["html", "gz"]` list instead of extending it,
-so keep the defaults you still need, as in the example above.
+The passed extensions replace the default `["html", "gz"]` list instead of extending it, so keep the defaults you still need, as in the example above.
 
 ## Contributing
 
